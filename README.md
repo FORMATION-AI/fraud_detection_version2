@@ -59,4 +59,10 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-4. 
+## Usage
+## Flask Web App
+1. Ensure main.py and home.html are in place.
+2. Run the Flask app:
+```bash
+python main.py
+```
