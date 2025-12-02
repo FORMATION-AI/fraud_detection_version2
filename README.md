@@ -67,6 +67,7 @@ pip install -r requirements.txt
 python main.py
 ```
 ![Sample Detection Screenshot](fraud_detect.PNG)
+
 3. Open the browser at: http://127.0.0.1:5000
 4. Fill in the transaction details and submit to get fraud prediction.
 
