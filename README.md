@@ -67,3 +67,28 @@ pip install -r requirements.txt
 python main.py
 ```
 ![Sample Detection Screenshot](fraud_detect.PNG)
+3. Open the browser at: http://127.0.0.1:5000
+4. Fill in the transaction details and submit to get fraud prediction.
+
+## Streamlit Web App (Optional)
+1. Run the Streamlit app:
+```bash
+streamlit run app.py
+```
+2. The app opens in a browser with a similar input form.
+
+## How It Works
+1. Data Input: Users provide transaction features (amount, customer age, session duration, time features, etc.).
+2. Preprocessing: Numeric columns are scaled, categorical columns are encoded.
+3. Prediction Pipeline:
+   - Features are aligned to match training.
+   - Model predicts 0 (Not Fraud) or 1 (Fraud).
+4. Output: Web interface displays prediction result and probability.
+
+## Model Evaluation
+- Models evaluated using AUC-ROC on training and test data.
+- Best-performing model saved in artifacts/model.pkl.
+
+## Next Steps:
+1. Model Deployment using AWS Beanstalk
+2. Deployment EC2 instance with ECR
