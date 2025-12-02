@@ -66,3 +66,4 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+![Sample Detection Screenshot](fraud detect.PNG)
