@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Portal</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: #d8dce3;
+            margin: 0;
+        }
+
+        .wrapper {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: #151a21;
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 0 25px rgba(0,0,0,0.45);
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.9rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8a8f98;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            padding: 0.7rem 0.8rem;
+            background: #0e1318;
+            border: 1px solid #2c3239;
+            border-radius: 8px;
+            color: #e7ebf0;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #4f8bff;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.9rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background: #3b6df2;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #5282ff;
+        }
+
+        .result-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: #0e1318;
+            border: 1px solid #333a42;
+        }
+
+        .result-box.error {
+            border-color: #ff6b6b;
+            color: #ffc7c7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+
+            <h1>Fraud Risk Prediction</h1>
+            <p class="subtitle">Provide the recent transaction metrics to score the likelihood of fraud.</p>
+
+            <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+                <div class="form-group">
+                    <label for="amount">Transaction Amount (local currency)</label>
+                    <input id="amount" name="amount" type="number" step="0.01" min="0" placeholder="e.g. 1250.00" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer_age">Customer Age (years)</label>
+                        <input id="customer_age" name="customer_age" type="number" min="0" max="120" placeholder="e.g. 42" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="minute_of_day">Minute of Day (0 – 1439)</label>
+                        <input id="minute_of_day" name="minute_of_day" type="number" min="0" max="1439" placeholder="e.g. 819" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="to_acc_volume">Volume Sent to Beneficiary (currency)</label>
+                        <input id="to_acc_volume" name="to_acc_volume" type="number" min="0" step="0.01" placeholder="e.g. 2200.50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="session_duration">Session Duration (seconds)</label>
+                        <input id="session_duration" name="session_duration" type="number" min="0" placeholder="e.g. 75" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hour_of_day">Hour of Day</label>
+                        <select id="hour_of_day" name="hour_of_day" required>
+                            <option value="" disabled selected>Select hour</option>
+                            {% for hour in range(0,24) %}
+                            <option value="{{ hour }}">{{ "%02d:00" % hour }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="day_of_week">Day of Week</label>
+                        <select id="day_of_week" name="day_of_week" required>
+                            <option value="" disabled selected>Select day</option>
+                            <option value="0">Monday</option>
+                            <option value="1">Tuesday</option>
+                            <option value="2">Wednesday</option>
+                            <option value="3">Thursday</option>
+                            <option value="4">Friday</option>
+                            <option value="5">Saturday</option>
+                            <option value="6">Sunday</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="submit-btn" type="submit">Predict Fraud Probability</button>
+
+            </form>
+
+            {% if error_message %}
+            <div class="result-box error">
+                <strong>Error:</strong> {{ error_message }}
+            </div>
+            {% elif results is not none %}
+            <div class="result-box">
+                <strong>Model decision:</strong> {{ results }}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>
