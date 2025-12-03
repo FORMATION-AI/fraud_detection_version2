@@ -16,10 +16,10 @@ from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
-    source_data_path: str = os.path.join("notebook", "data", "fraud_dataset_raw.csv")
-    train_data_path: str = os.path.join("artifacts", "train.csv")
-    test_data_path: str = os.path.join("artifacts", "test.csv")
-    raw_data_path: str = os.path.join("artifacts", "data.csv")
+    source_data_path: str = os.path.join("backend", "notebook", "data", "fraud_dataset_raw.csv")
+    train_data_path: str = os.path.join("backend", "artifacts", "train.csv")
+    test_data_path: str = os.path.join("backend", "artifacts", "test.csv")
+    raw_data_path: str = os.path.join("backend", "artifacts", "data.csv")
 
 
 class DataIngestion:

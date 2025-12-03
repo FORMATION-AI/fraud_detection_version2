@@ -15,11 +15,11 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path: str = os.path.join("artifacts", "preprocessor.pkl")
-    encoder_obj_file_path: str = os.path.join("artifacts", "encoder.pkl")
-    schema_file_path: str = os.path.join("artifacts", "schema.json")
+    preprocessor_obj_file_path: str = os.path.join("backend", "artifacts", "preprocessor.pkl")
+    encoder_obj_file_path: str = os.path.join("backend", "artifacts", "encoder.pkl")
+    schema_file_path: str = os.path.join("backend", "artifacts", "schema.json")
     feature_columns_file_path: str = os.path.join(
-        "artifacts", "feature_columns.json"
+        "backend", "artifacts", "feature_columns.json"
     )
 
 

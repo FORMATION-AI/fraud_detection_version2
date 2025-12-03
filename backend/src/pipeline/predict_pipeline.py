@@ -9,11 +9,11 @@ from src.utils import load_object
 
 class PredictPipeline:
     def __init__(self):
-        self.model_path = os.path.join("artifacts", "model.pkl")
-        self.scaler_path = os.path.join("artifacts", "preprocessor.pkl")
-        self.encoder_path = os.path.join("artifacts", "encoder.pkl")
-        self.schema_path = os.path.join("artifacts", "schema.json")
-        self.feature_columns_path = os.path.join("artifacts", "feature_columns.json")
+        self.model_path = os.path.join("backend", "artifacts", "model.pkl")
+        self.scaler_path = os.path.join("backend", "artifacts", "preprocessor.pkl")
+        self.encoder_path = os.path.join("backend", "artifacts", "encoder.pkl")
+        self.schema_path = os.path.join("backend", "artifacts", "schema.json")
+        self.feature_columns_path = os.path.join("backend", "artifacts", "feature_columns.json")
 
         with open(self.schema_path, "r") as f:
             schema = json.load(f)
